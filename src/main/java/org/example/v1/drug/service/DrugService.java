@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugService {
@@ -19,8 +20,7 @@ public class DrugService {
 
     @Transactional
     public List <Drug> findAll() {
-        List <Drug> drugList = (ArrayList) drugRepository.findAll();
-        return drugList;
+        return drugRepository.findAll();
     }
 
     @Transactional
@@ -34,8 +34,13 @@ public class DrugService {
     }
 
     @Transactional
-    public List <Drug> find(String name) {
+    public List <Drug> findByName(String name) {
         List <Drug> drugFind = drugRepository.findByName(name);
         return drugFind;
+    }
+
+    @Transactional
+    public Optional<Drug> findById(Long id) {
+        return drugRepository.findById(id);
     }
 }
