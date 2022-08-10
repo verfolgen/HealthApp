@@ -2,16 +2,12 @@ package org.example.v1.drug.controller;
 
 import org.example.v1.drug.dto.DrugRecord;
 import org.example.v1.drug.service.DrugService;
-import org.example.v1.drug.entity.Drug;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
