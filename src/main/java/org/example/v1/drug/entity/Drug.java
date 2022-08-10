@@ -3,10 +3,8 @@ package org.example.v1.drug.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 //Объект, описывающий какое лекарство
