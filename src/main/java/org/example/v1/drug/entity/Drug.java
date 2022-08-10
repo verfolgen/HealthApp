@@ -1,72 +1,36 @@
 package org.example.v1.drug.entity;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 //Объект, описывающий какое лекарство
 @Entity
-@Table(name = "druglist")
+@Table(name = "drug")
+@Data
+@NoArgsConstructor
 public class Drug {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @Column(name="created")
+    private LocalDate created;
+
     //наименование лекарства
     @Column(name = "name")
     private String name;
     //Срок годности лекарства
-    @Column (name = "date")
-    private String date;
+    @Column (name = "before_date")
+    private LocalDate before_date;
     //Ссылка для инструкции
     @Column (name = "instruction")
     private String instruction;
 
-    public Drug() {}
-
-    public Drug(String name, String date, String instruction) {
-        this.name = name;
-        this.date = date;
-        this.instruction = instruction;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getInstruction() {
-        return instruction;
-    }
-
-    public void setInstruction(String instruction) {
-        this.instruction = instruction;
-    }
-
-    @Override
-    public String toString() {
-        return "Drug{" +
-                "name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", instruction='" + instruction + '\'' +
-                '}';
-    }
 }
+
