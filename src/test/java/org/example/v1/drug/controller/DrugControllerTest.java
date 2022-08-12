@@ -32,7 +32,6 @@ class DrugControllerTest extends AbstractIntegrationTest {
     @Autowired
     protected DrugRepository drugRepository;
 
-
     private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
 
     @Transactional
@@ -44,13 +43,16 @@ class DrugControllerTest extends AbstractIntegrationTest {
         drug.setBefore_date(LocalDate.of(2022, 1, 1));
         drugRepository.save(drug);
 
+        Drug drug1 = new Drug();
+        drug.setName("Pentalgin");
+        drug.setInstruction("Instruction pentalgin");
+        drug.setBefore_date(LocalDate.of(2022, 8, 9));
+        drugRepository.save(drug1);
+
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/drugs")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Arbidol"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].instruction").value("Instruction arbidol"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].before_date").value("2022-01-01"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(2));
     }
 
     @Transactional
