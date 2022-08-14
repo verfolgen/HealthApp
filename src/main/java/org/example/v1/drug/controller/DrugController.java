@@ -22,23 +22,23 @@ public class DrugController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DrugRecord>> findAllDrugs() {
-        return new ResponseEntity<>(drugService.findAll(), HttpStatus.OK);
+        return ResponseEntity.ok().body(drugService.findAllDrugs());
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DrugRecord> saveDrug (@RequestBody DrugRecord drugRecord) {
-        drugService.save(drugRecord);
-        return new ResponseEntity<>(drugRecord, HttpStatus.CREATED);
+        drugService.saveDrug(drugRecord);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<DrugRecord> findByIdDrug (@PathVariable("id") Long id) {
-        return drugService.findById(id);
+    public ResponseEntity<DrugRecord> findByIdDrug (@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(drugService.findByIdDrug(id));
     }
 
     @DeleteMapping(value = "/{drugId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteDrug (@PathVariable Long drugId) {
-        drugService.delete(drugId);
+        drugService.deleteDrugById(drugId);
     }
 }

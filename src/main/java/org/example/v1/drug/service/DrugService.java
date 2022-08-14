@@ -26,47 +26,47 @@ public class DrugService {
     }
 
     @Transactional
-    public List <DrugRecord> findAll() {
+    public List <DrugRecord> findAllDrugs() {
         log.info("Start find all drugs");
-        return drugRepository
-                .findAll()
+        List<Drug> drugs = drugRepository.findAll();
+        return drugs
                 .stream()
                 .map(DrugMapper.INSTANCE::toRecord)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public void save (DrugRecord drugRecord) {
-        log.info("Attempt save drug record={}", drugRecord);
+    public void saveDrug (DrugRecord drugRecord) {
+        log.info("Attempt save drug record {}", drugRecord);
         if (drugRecord == null) {
-            log.info("Drug record isn't request={}", drugRecord);
+            log.error("Drug record isn't request {}", drugRecord);
              throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Drug Record isn't in request");
         }
         Drug drugEntity = DrugMapper.INSTANCE.toEntity(drugRecord);
         drugEntity.setInstruction
                 ("https://www.vidal.ru/search?t=all&q="+drugEntity.getName());
         drugEntity.setCreated(LocalDate.now());
-        log.info("Successfully saved drug={}", drugRecord.getId());
+        log.info("Successfully saved drug with id {}", drugRecord.getId());
         drugRepository.save(drugEntity);
     }
 
     @Transactional
-    public void delete (Long drugId) {
-        log.info("Attempt delete drug by id={}", drugId);
+    public void deleteDrugById (Long drugId) {
+        log.info("Attempt delete drug by id {}", drugId);
         if(!drugRepository.existsById(drugId)) {
-            log.info("Drug with id={} don't exist", drugId);
+            log.error("Drug with id {} don't exist", drugId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Drug with " + drugId + " don't exist");
         }
+        log.info("Successfully delete drug {}", drugId);
         drugRepository.deleteById(drugId);
     }
 
     @Transactional
-    public Optional<DrugRecord> findById(Long drugId) {
-        log.info("Attempt find drug by id={}", drugId);
-        if(!drugRepository.existsById(drugId)) {
-            log.info("Drug with id={} don't exist", drugId);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Drug with " + drugId + " don't exist");
-        }
-        return drugRepository.findById(drugId).map(DrugMapper.INSTANCE::toRecord);
+    public DrugRecord findByIdDrug(Long drugId) {
+        log.info("Attempt find drug by id {}", drugId);
+        return drugRepository
+                .findById(drugId)
+                .map(DrugMapper.INSTANCE::toRecord)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Drug with " + drugId + " don't exist"));
     }
 }
