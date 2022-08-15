@@ -9,5 +9,6 @@
     </changeSet>
 
     <include file="create-table-drug.xml" relativeToChangelogFile="true"/>
+    <include file="create-table-user.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
