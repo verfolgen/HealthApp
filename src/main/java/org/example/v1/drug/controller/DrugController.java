@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/drugs")
+@RequestMapping("api/v1/drugs")
 public class DrugController {
     private final DrugService drugService;
 
