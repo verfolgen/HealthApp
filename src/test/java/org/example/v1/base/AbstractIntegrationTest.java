@@ -1,4 +1,4 @@
-package base;
+package org.example.v1.base;
 
 import org.example.v1.MainApplication;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,6 @@
 package org.example.v1.email;
 
-import lombok.AllArgsConstructor;
-import org.example.v1.base.AbstractIntegrationTest;
+
 import org.example.v1.email.util.EmailValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
