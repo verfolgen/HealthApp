@@ -16,7 +16,7 @@
     </parent>
 
     <properties>
-        <postgresql.version>42.4.0</postgresql.version>
+        <postgresql.version>42.4.1</postgresql.version>
         <testcontainers.version>1.17.3</testcontainers.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <projectlombok.version>1.18.24</projectlombok.version>
@@ -35,7 +35,15 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -125,7 +133,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.7.0</version>
                 <configuration>
-                    <mainClass>org.example.v1.drug.MainApplication</mainClass>
+                    <mainClass>org.example.v1.MainApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
