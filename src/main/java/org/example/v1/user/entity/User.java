@@ -18,11 +18,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "lastName")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
@@ -35,10 +35,18 @@ public class User implements UserDetails {
     private UserRole userRole;
 
     @Column(name = "locked")
-    private Boolean locked;
+    private Boolean locked = false;
 
     @Column(name = "enabled")
-    private Boolean enabled;
+    private Boolean enabled = false;
+
+    public User(String firstName, String lastName, String email, String password, UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -53,7 +61,15 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     @Override
