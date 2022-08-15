@@ -1,7 +1,6 @@
 package org.example.v1.user.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +12,7 @@ import java.util.Collections;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "appUserRole")
+    @Column(name = "userRole")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -39,22 +39,6 @@ public class User implements UserDetails {
 
     @Column(name = "enabled")
     private Boolean enabled;
-
-    public User(String name,
-                String username,
-                String email,
-                String password,
-                UserRole userRole,
-                Boolean locked,
-                Boolean enabled) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-        this.locked = locked;
-        this.enabled = enabled;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
