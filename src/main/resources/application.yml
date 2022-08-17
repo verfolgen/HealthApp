@@ -1,0 +1,57 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+
+  datasource:
+    password:
+    url: jdbc:postgresql://localhost:5432/druglist
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 300000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect:
+        format_sql: true
+        use_sql_comments: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:/db.changelog/db.changelog-master.xml
+    database-change-log-lock-table: DATABASECHANGELOGLOCK
+    database-change-log-table: DATABASECHANGELOG
+    user: postgres
+    password:
+    url: jdbc:postgresql://localhost:5432/druglist
+
+  mail:
+    host: smtp.yandex.ru
+    port: 465
+    username: zhe8745@yandex.ru
+    password: mwlpechlyoyxidym
+
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+          ssl:
+            enable: false
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    protocol: smtps
