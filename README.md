@@ -1,5 +1,5 @@
 # Healthapp
-**The application for the accounting of medicines (drugs).
+The application for the accounting of medicines (drugs).
 The project has the following packages:
 -'registrastion' implements the authorization logic;
 - 'drug' and 'user' - is entity for app;
