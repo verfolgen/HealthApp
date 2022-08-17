@@ -5,7 +5,6 @@ import org.example.v1.registration.dto.RegistrationRequest;
 import org.example.v1.registration.service.RegistrationService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("api/v1/registration")
