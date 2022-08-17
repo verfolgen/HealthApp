@@ -4,7 +4,7 @@ The project has the following packages:
 -'registrastion' implements the authorization logic;
 - 'drug' and 'user' - is entity for app;
 - 'email' the logic of email confirmation;
-- 'security' config security app.**
+- 'security' config security app.
 
 ### Backend
 - Spring Boot
