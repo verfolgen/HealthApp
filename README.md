@@ -15,5 +15,6 @@ Integration testing is organized in the application using Testcontainers and Moc
 - PostgreSQL Database
 - Mapstruct
 - Lombok
+- Swagger/OpenApi
 - Junit
 - Testcontainers
