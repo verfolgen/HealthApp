@@ -24,22 +24,18 @@ public class User implements UserDetails {
 
     @Schema(description = "First name of the user")
     @Column(name = "first_name")
-    @Max(100)
     private String firstName;
 
     @Schema(description = "Last name of the user")
     @Column(name = "last_name")
-    @Max(50)
     private String lastName;
 
     @Schema(description = "Email of the user")
     @Column(name = "email")
-    @Max(50)
     private String email;
 
     @Schema(description = "Hash password of the user")
     @Column(name = "password")
-    @Max(100)
     private String password;
 
     @Schema(description = "Role of the user in the system")

@@ -24,12 +24,10 @@ public class ConfirmationToken {
     @Schema(description = "Issued token")
     @Column(name = "token")
     @NotBlank
-    @Max(255)
     private String token;
 
     @Schema(description = "Created date of the token")
     @Column(name = "created_at")
-    @NotBlank
     private LocalDateTime createdAt;
 
     @Schema(description = "Expire date of the token")
