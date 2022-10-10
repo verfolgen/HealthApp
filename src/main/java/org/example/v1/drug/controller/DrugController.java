@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,9 @@ public class DrugController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a list of all drugs")
     public ResponseEntity<List<DrugRecord>> findAllDrugs() {
-        return ResponseEntity.ok().body(drugService.findAllDrugs());
+        List<DrugRecord> drugRecords = drugService.findAllDrugs();
+        Collections.sort(drugRecords, Comparator.comparing(DrugRecord::getName));
+        return ResponseEntity.ok().body(drugRecords);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,7 +40,6 @@ public class DrugController {
                                                     @RequestBody DrugRecord drugRecord) {
         drugService.saveDrug(drugRecord);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
     @Operation(summary = "Get drug by id")

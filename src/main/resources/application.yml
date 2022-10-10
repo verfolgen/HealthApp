@@ -6,13 +6,15 @@ server:
 spring:
 
   datasource:
-    password:
-    url: jdbc:postgresql://localhost:5432/druglist
+    password: ghtq345
+    host: localhost
+    port: 5436
     username: postgres
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 20
       connection-timeout: 300000
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/druglist
 
   jpa:
     hibernate:
@@ -30,8 +32,8 @@ spring:
     database-change-log-lock-table: DATABASECHANGELOGLOCK
     database-change-log-table: DATABASECHANGELOG
     user: postgres
-    password:
-    url: jdbc:postgresql://localhost:5432/druglist
+    password: ghtq345
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/druglist
 
   mail:
     host: smtp.yandex.ru

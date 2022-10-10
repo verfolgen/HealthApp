@@ -139,7 +139,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.7.0</version>
                 <configuration>
-                    <mainClass>org.example.v1.MainApplication</mainClass>
+                    <mainClass>org.sbitnev.part2.v1.MainApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
