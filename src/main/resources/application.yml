@@ -7,7 +7,7 @@ spring:
 
   datasource:
     password: ghtq345
-    host: localhost
+    host: serverevg.ddns.net
     port: 5436
     username: postgres
     driver-class-name: org.postgresql.Driver

@@ -7,4 +7,6 @@ services:
       POSTGRES_PASSWORD: ghtq345
     ports:
       - '5436:5432'
+    volumes:
+      - '/server/postgres:/var/lib/postgresql/data'
 
