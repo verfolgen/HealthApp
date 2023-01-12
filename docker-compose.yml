@@ -6,5 +6,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ghtq345
     ports:
-      - '5436:5432'
+      - '5435:5432'
+    volumes:
+      - '/server/postgres:/var/lib/postgresql/data'
 

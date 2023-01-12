@@ -13,7 +13,9 @@ import java.util.Collections;
 
 @Schema(description = "Entity for store user")
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -43,12 +45,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @Schema(description = "Locked or not user in the system")
-    @Column(name = "locked")
-    private Boolean locked = false;
+    @Schema(description = "Deleted or not user in the system")
+    @Column(name = "is_deleted")
+    private Boolean is_deleted = false;
 
     @Schema(description = "Confirm or not user in the system")
-    @Column(name = "enabled")
+    @Column(name = "confirmed")
     private Boolean enabled = false;
 
     public User(String firstName, String lastName, String email, String password, UserRole userRole) {
@@ -75,14 +77,6 @@ public class User implements UserDetails {
         return email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -90,7 +84,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return true;
     }
 
     @Override
@@ -100,6 +94,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }

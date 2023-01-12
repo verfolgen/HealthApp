@@ -1,14 +1,21 @@
-package org.example.v1.registration.service;
+package org.example.v1.auth.service;
 
 import lombok.AllArgsConstructor;
+import org.example.v1.auth.dto.AuthenticationRequest;
+import org.example.v1.auth.dto.AuthenticationResponse;
+import org.example.v1.auth.dto.RegistrationResponse;
+import org.example.v1.auth.utils.JwtUtils;
 import org.example.v1.email.EmailSender;
 import org.example.v1.email.util.EmailValidator;
-import org.example.v1.registration.dto.RegistrationRequest;
-import org.example.v1.registration.token.ConfirmationToken;
-import org.example.v1.registration.token.ConfirmationTokenService;
+import org.example.v1.auth.dto.RegistrationRequest;
+import org.example.v1.auth.confirm.ConfirmationToken;
+import org.example.v1.auth.confirm.ConfirmationTokenService;
 import org.example.v1.user.entity.User;
 import org.example.v1.user.entity.UserRole;
+import org.example.v1.user.repository.UserRepository;
 import org.example.v1.user.service.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,34 +23,59 @@ import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
-public class RegistrationService {
+public class AuthenticationService {
     private final EmailValidator emailValidator;
     private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
+    private final JwtUtils jwtUtils;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final UserRepository userRepository;
+
     @Transactional
-    public String register(RegistrationRequest request) {
+    public RegistrationResponse register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if(!isValidEmail) {
             throw new IllegalStateException(request.getEmail() + " is not valid email. Try again");
         }
 
-         String token = userService.signUp(
-                new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        UserRole.ADMIN
-                )
-        );
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+         User user = User.builder()
+                        .firstName(request.getFirstName())
+                 .lastName(request.getLastName())
+                        .email(request.getEmail())
+                        .password(request.getPassword())
+                        .userRole(UserRole.USER)
+                        .build();
+        String confirmToken = userService.signUp(user);
 
-        emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+        final String jwtToken = jwtUtils.generateToken(user);
+        //String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
 
-        return token;
+        //emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+
+        return RegistrationResponse
+                .builder()
+                .jwtToken(jwtToken)
+                .confirmToken(confirmToken)
+                .build();
+    }
+
+    @Transactional
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(RuntimeException::new);
+
+        final String jwtToken = jwtUtils.generateToken(user);
+
+        return AuthenticationResponse
+                .builder()
+                .jwtToken(jwtToken)
+                .build();
     }
 
     @Transactional
