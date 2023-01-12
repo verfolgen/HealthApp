@@ -1,4 +1,4 @@
-package org.example.v1.registration.token;
+package org.example.v1.auth.confirm;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

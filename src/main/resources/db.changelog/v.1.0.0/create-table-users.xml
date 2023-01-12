@@ -32,8 +32,8 @@
             <column name="user_role" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="locked" type="boolean"/>
-            <column name="enabled" type="boolean"/>
+            <column name="is_deleted" type="boolean"/>
+            <column name="confirmed" type="boolean"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

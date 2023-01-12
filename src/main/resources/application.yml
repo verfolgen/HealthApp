@@ -2,13 +2,16 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+  port: 8081
 
 spring:
+  main:
+    allow-circular-references: true
 
   datasource:
     password: ghtq345
-    host: serverevg.ddns.net
-    port: 5436
+    host: localhost
+    port: 5435
     username: postgres
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -57,3 +60,5 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
             fallback: false
     protocol: smtps
+jwt:
+  secret: 
